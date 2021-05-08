@@ -37,7 +37,7 @@ Vue.use(VueAxios, axios);
 
 export default {
   name: "fetch",
-  props: ["test"],
+  props: ["greet"],
 
   created() {
     this.fetchCurrencies();
@@ -47,12 +47,12 @@ export default {
       currencies: "",
       cityCurrency: "",
       image: image,
-      korv: this.test,
+      hello: this.greet,
     };
   },
   methods: {
     onClick: function () {
-      alert(this.cityCurrency + " " + this.korv);
+      alert(this.hello + " " + this.cityCurrency);
     },
 
     fetchCurrencies() {

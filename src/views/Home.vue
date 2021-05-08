@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <cityAndCurrencies test="korv" />
+    <cityAndCurrencies greet="HELLO" />
   </div>
 </template>
 
@@ -14,3 +14,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.home {
+  background-color: #f5f5f5;
+}
+</style>
