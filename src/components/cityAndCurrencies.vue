@@ -1,17 +1,21 @@
 <template>
   <div>
-    <b-col md="6" class="mb-3">
+    <b-col id="snurra" md="6" class="mb-3">
       <p>Wow den snurrar:</p>
       <b-icon
         icon="arrow-counterclockwise"
         animation="spin-reverse"
-        font-scale="4"
+        font-scale="3"
       ></b-icon>
     </b-col>
 
-    <img :src="image" />
+    <div id="logga">
+      <img :src="image" />
+    </div>
     <input v-model="cityCurrency" />
     <input @click="onClick" type="button" value="Enter a name" />
+    <br />
+    <br />
     <div v-if="currencies">
       <p v-for="currency in currencies" :key="currency.id">
         {{ currency.name }}
@@ -62,3 +66,28 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media (max-width: 480px) {
+  #logga {
+    position: absolute;
+    top: -25px;
+    right: 20px;
+  }
+  #snurra {
+    position: absolute;
+    top: -25px;
+    left: 10px;
+  }
+}
+#logga {
+  position: absolute;
+  top: -25px;
+  right: 20px;
+}
+#snurra {
+  position: absolute;
+  top: -25px;
+  left: -25px;
+}
+</style>
