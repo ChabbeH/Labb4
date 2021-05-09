@@ -3,6 +3,7 @@
     <b-col id="snurra" md="6" class="mb-3">
       <p>Wow den snurrar:</p>
       <b-icon
+        class="korv"
         icon="arrow-counterclockwise"
         animation="spin-reverse"
         font-scale="3"
@@ -17,8 +18,8 @@
     <br />
     <br />
     <div v-if="currencies">
-      <p v-for="currency in currencies" :key="currency.id">
-        {{ currency.name }}
+      <p v-for="data in fetchedData" :key="data.id">
+        {{ data.name }}
       </p>
     </div>
     <p v-else>laddar....</p>
@@ -44,10 +45,11 @@ export default {
   },
   data() {
     return {
-      currencies: "",
+      currencies: null,
       cityCurrency: "",
       image: image,
       hello: this.greet,
+      fetchedData: [],
     };
   },
   methods: {
@@ -56,12 +58,13 @@ export default {
     },
 
     fetchCurrencies() {
-      for (let i = 0; i < 10; i++) {
-        let url = "https://api.coinbase.com/v2/currencies";
-        this.axios.get(url).then((response) => {
-          this.currencies = response.data.data;
-        });
-      }
+      let url = "https://api.coinbase.com/v2/currencies";
+      this.axios.get(url).then((response) => {
+        this.currencies = response.data.data;
+        for (var i = 0; i < 10; i++) {
+          this.fetchedData.push(this.currencies[i]);
+        }
+      });
     },
   },
 };
@@ -85,9 +88,9 @@ export default {
   top: -25px;
   right: 20px;
 }
-#snurra {
+#snurra .korv {
   position: absolute;
-  top: -25px;
-  left: -25px;
+  top: 80px;
+  left: 80px;
 }
 </style>
