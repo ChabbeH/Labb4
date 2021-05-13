@@ -16,8 +16,8 @@
       </div>
     </div>
 
-    <input v-model="cityCurrency" />
-    <input @click="onClick" type="button" value="Enter your name" />
+    <input placeholder="Enter your name" v-model="cityCurrency" />
+    <input @click="onClick" type="button" value="Send" />
     <br />
     <br />
     <div class="buttons">
@@ -68,7 +68,6 @@ export default {
     },
 
     fetchCurrencies(amount) {
-      console.log(amount);
       this.currencies = null;
       this.fetchedData = [];
       let url = "https://api.coinbase.com/v2/currencies";
