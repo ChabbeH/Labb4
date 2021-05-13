@@ -31,7 +31,7 @@
         {{ data.name }}
       </p>
     </div>
-    <p v-else>laddar....</p>
+    <p v-else>laddar......</p>
   </div>
 </template>
 
