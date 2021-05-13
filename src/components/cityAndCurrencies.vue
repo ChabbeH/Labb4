@@ -1,22 +1,31 @@
 <template>
   <div>
-    <b-col id="snurra" md="6" class="mb-3">
-      <p>Wow den snurrar:</p>
-      <b-icon
-        class="korv"
-        icon="arrow-counterclockwise"
-        animation="spin-reverse"
-        font-scale="3"
-      ></b-icon>
-    </b-col>
-
-    <div id="logga">
+    <div class="wrapper">
       <img :src="image" />
+
+      <div class="stars">
+        <b-col md="3" class="mb-3">
+          <b-icon icon="star-fill" animation="fade" font-scale="1"></b-icon>
+        </b-col>
+        <b-col md="4" class="mb-3">
+          <b-icon icon="star-fill" animation="fade" font-scale="1"></b-icon>
+        </b-col>
+        <b-col md="5" class="mb-3">
+          <b-icon icon="star-fill" animation="fade" font-scale="1"></b-icon>
+        </b-col>
+      </div>
     </div>
+
     <input v-model="cityCurrency" />
-    <input @click="onClick" type="button" value="Enter a name" />
+    <input @click="onClick" type="button" value="Enter your name" />
     <br />
     <br />
+    <div class="buttons">
+      <h2>List currencies</h2>
+      <button @click="fetchCurrencies(10)">10</button>
+      <button @click="fetchCurrencies(25)">25</button>
+      <button @click="fetchCurrencies(50)">50</button>
+    </div>
     <div v-if="currencies">
       <p v-for="data in fetchedData" :key="data.id">
         {{ data.name }}
@@ -50,6 +59,7 @@ export default {
       image: image,
       hello: this.greet,
       fetchedData: [],
+      amount: null,
     };
   },
   methods: {
@@ -57,12 +67,21 @@ export default {
       alert(this.hello + " " + this.cityCurrency);
     },
 
-    fetchCurrencies() {
+    fetchCurrencies(amount) {
+      console.log(amount);
+      this.currencies = null;
+      this.fetchedData = [];
       let url = "https://api.coinbase.com/v2/currencies";
       this.axios.get(url).then((response) => {
         this.currencies = response.data.data;
-        for (var i = 0; i < 10; i++) {
-          this.fetchedData.push(this.currencies[i]);
+        if (amount === undefined) {
+          for (var i = 0; i < 10; i++) {
+            this.fetchedData.push(this.currencies[i]);
+          }
+        } else {
+          for (i = 0; i < amount; i++) {
+            this.fetchedData.push(this.currencies[i]);
+          }
         }
       });
     },
@@ -71,26 +90,37 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 480px) {
-  #logga {
-    position: absolute;
-    top: -25px;
-    right: 20px;
-  }
-  #snurra {
-    position: absolute;
-    top: -25px;
-    left: 10px;
-  }
+.stars {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 20%;
 }
-#logga {
-  position: absolute;
-  top: -25px;
-  right: 20px;
+.stars svg {
+  color: rgb(255, 230, 0);
 }
-#snurra .korv {
-  position: absolute;
-  top: 80px;
-  left: 80px;
+.stars div {
+  width: auto;
+}
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.wrapper img {
+  max-width: 100px;
+  position: relative;
+  right: 30px;
+  margin-bottom: 20px;
+}
+.buttons button {
+  margin: 0 5px;
+  padding: 0 20px;
+  border: none;
+  cursor: pointer;
+}
+.buttons {
+  margin-bottom: 20px;
 }
 </style>
